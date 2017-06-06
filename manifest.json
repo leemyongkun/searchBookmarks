@@ -1,0 +1,48 @@
+{
+  "name": "Search Bookmark & Custom Backgroud",
+  "description": "replace newtab page",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "icons": {
+    "24": "img/fav24.png",
+    "128": "img/fav128.png"
+  },
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "permissions": [
+    "tabs",
+    "bookmarks",
+    "background",
+    "<all_urls>",
+     "history",
+     "system.cpu",
+     "topSites",
+     "chrome://favicon/*",
+     "webRequest",
+     "webRequestBlocking",
+     "http://cdnjs.cloudflare.com/*",
+     "http://codepen.io/*",
+     "http://ajax.googleapis.com/*"
+   ],
+   "background": {
+    "scripts": ["background.js"]
+  },
+  "content_security_policy": "script-src 'self' https://*.yahooapis.com; object-src 'self'",
+   "content_scripts": [
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "css": ["/css/app.css"],
+      "js": ["/custom_js/clock.js",
+            "/custom_js/crawl.js",
+            "/custom_js/date.js",
+            "/custom_js/map.js",
+            "/custom_js/db.js",
+            "/custom_js/setting.js",
+            "/custom_js/app.js",
+            "/custom_js/settree.js",
+            "/custom_js/weather.js"
+            ]
+    }
+  ]
+}

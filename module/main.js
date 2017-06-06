@@ -1,0 +1,8 @@
+require.config({
+    // requirejs 가 찾는 기본 URL
+    baseUrl : "module",  
+    paths : {
+		'request':'request'
+    }
+
+});

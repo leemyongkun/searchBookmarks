@@ -1,0 +1,71 @@
+#result::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #FFFFFF;
+}
+
+#result::-webkit-scrollbar
+{
+    width: 3px;
+    background-color: #FFFFFF;
+}
+
+#result::-webkit-scrollbar-thumb
+{
+    background-color: #8C8C8C;
+}
+
+
+#visit::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #FFFFFF;
+}
+
+#visit::-webkit-scrollbar
+{
+    width: 3px;
+    background-color: #FFFFFF;
+}
+
+#visit::-webkit-scrollbar-thumb
+{
+    background-color: #8C8C8C;
+}
+
+ 
+#data::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #FFFFFF;
+}
+
+#data::-webkit-scrollbar
+{
+    width: 3px;
+    background-color: #FFFFFF;
+}
+
+#data::-webkit-scrollbar-thumb
+{
+    background-color: #8C8C8C;
+}
+
+
+
+#dataGroup::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #FFFFFF;
+}
+
+#dataGroup::-webkit-scrollbar
+{
+    width: 3px;
+    background-color: #FFFFFF;
+}
+
+#dataGroup::-webkit-scrollbar-thumb
+{
+    background-color: #8C8C8C;
+}

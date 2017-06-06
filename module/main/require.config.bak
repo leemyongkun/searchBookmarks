@@ -1,0 +1,12 @@
+require.config({
+    // requirejs 가 찾는 기본 URL
+    baseUrl : "module",  
+    paths : {
+	"request":"request"
+    },
+    // define으로 정의되지 않은 모듈에 대해서는 shim을 통해 지정한다.
+    shim : {  
+        
+    },
+
+});

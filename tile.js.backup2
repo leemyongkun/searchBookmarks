@@ -1,0 +1,154 @@
+var tab_list= document.getElementById('tab_list'),
+ bookmark_list= document.getElementById('bookmarks_list'),
+ history_list= document.getElementById('history_list'),
+ tmpl= document.getElementById('tmpl').firstChild,
+ FAVICON= 'http://www.google.com/s2/favicons?domain=';
+
+
+
+ function list_creater(datas, parent){
+  
+  datas.forEach(function ct(data){
+   
+    if(!data.parentId && data.children){
+        for(var idx = 0 ; idx < data.children.length ; idx++ ){
+          console.log(data.children[idx]);
+
+ d.add(data.children[idx].id, 
+                data.children[idx].parentId,
+                data.children[idx].title
+                ); 
+         /*if(data.children[idx].children){
+            data.children[idx].children.forEach(ct)
+          }*/
+
+        }
+    }
+
+    //if (data.url && data.title && data.url.indexOf('javascript:') !== 0) {}
+  
+  });
+   document.write(d); //화면에 표
+}
+/*
+  d.add(data.children[idx].id, 
+                data.children[idx].parentId,
+                data.children[idx].title
+                ); 
+*/
+
+$(document).ready(function(){
+ 
+   d  = new dTree('d'); //dtree선언
+   d.add(0,-1,'ROOT');    
+
+   dbConnect();
+
+})
+
+function subTree(){
+  alert("@");
+}
+
+
+function dbConnect(){
+  if(!!window.openDatabase) {
+       console.log("현재 브라우저는 Web SQL Database를 지원합니다")
+  }else{
+       console.log("현재 브라우저는 Web SQL Database를 지원하지 않습니다")
+  }
+}
+
+
+/*
+ var li = tmpl.cloneNode(true);
+      var a = li.firstChild;
+      a.href = data.url;
+      a.textContent = data.title;
+      var icon = document.createElement('img');
+      icon.src = data.favIconUrl || FAVICON + a.host;
+      a.insertBefore(icon, a.firstChild);
+      parent.appendChild(li);
+      if (callback) {
+        callback(data, a);
+      }
+*/
+chrome.bookmarks.getTree(function(roots){
+
+    var bookmarks = [];
+    
+    roots.forEach( function parser(node){
+
+      bookmarks.push(node);   
+      if (node.children) {
+        node.children.forEach(parser);
+      }
+      /*else if(node.url) {
+        bookmarks.push(node);
+      }*/
+     
+    });
+
+    list_creater(bookmarks, bookmark_list);
+  });
+
+
+function TabUpdate(){
+  chrome.tabs.getAllInWindow(null,function(tabs){
+    while (tab_list.firstChild) {
+      tab_list.removeChild(tab_list.firstChild);
+    }
+    list_creater(tabs, tab_list, function(tab, link){
+      link.addEventListener('click',function(evt){
+        evt.preventDefault();
+        evt.stopPropagation();
+        chrome.tabs.update(tab.id,{selected:true});
+      }, false);
+    });
+  });
+}
+TabUpdate();
+
+
+chrome.tabs.onUpdated.addListener(function(tabid, info){
+  if (info.status === 'complete') {
+    TabUpdate();
+  }
+});
+chrome.tabs.onRemoved.addListener(function(tabid){
+  TabUpdate();
+});
+chrome.tabs.onDetached.addListener(function(tabid){
+  TabUpdate();
+});
+chrome.tabs.onAttached.addListener(function(tabid){
+  TabUpdate();
+});
+chrome.tabs.onMoved.addListener(function(tabid){
+  TabUpdate();
+});
+
+
+const LEFT_CLICK = 0;
+const CENTER_CLICK = 1;
+document.addEventListener('click',function(evt){
+  var target = evt.target;
+  if (target instanceof HTMLAnchorElement &&
+      target.href &&
+      target.href.indexOf('http') !== 0) {
+    evt.preventDefault();
+    chrome.tabs.getSelected(null,function(tab){
+      switch (evt.button) {
+        case LEFT_CLICK :
+          chrome.tabs.update(tab.id,{url:target.href});
+          break;
+        case CENTER_CLICK:
+          chrome.tabs.create({
+            url:target.href,
+            selected:false
+          });
+          break;
+      }
+    });
+  }
+},false);

@@ -1,0 +1,269 @@
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Search Bookmark & Custom Backgroud</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/shop-homepage.css" rel="stylesheet">
+    <link href="css/app.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="themes/default/style.min.css" />
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="css/animate.min.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/creative.css" type="text/css">
+    <link rel="stylesheet" href="css/thumbelina.css" type="text/css">
+    <link rel="stylesheet" href="css/clock.css" type="text/css">
+    <link rel="stylesheet" href="css/scroll_style.css" type="text/css">
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+ 
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container" style="width:100%">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <!-- <a class="navbar-brand" href="#"></a> -->
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">배경설정 <b class="caret"></b></a>
+                        <ul role="menu" class="dropdown-menu">
+                            <li><a href="#" id="bookmark_back"><span class="glyphicon glyphicon-bookmark"></span> Bookmarks</a></li>
+                            <li><a href="#" id="picture_back"><span class="glyphicon glyphicon-picture"></span> Picture</a></li>
+                        </ul>
+                    </li>
+
+                    <li id="menuBookmark">
+                        <a href="#" id="updateBookmark" >Bookmark 편집</a>
+                    </li><!--  data-toggle="modal" data-target="#myModal" -->
+                    <li id="menuInit">
+                        <a href="#" id="init" data-toggle="confirmation">초기화</a>
+                    </li>
+                
+                    <!-- <li>
+                        <a href="#" id="googleCheck"> Google Search</a>
+                    </li>
+                    <li id="checkClock">
+                        <a href="#" id="clockCheck">Clock</a>
+                    </li> -->
+
+                    <li>
+                       <label id="googleCheckLabel"><input type="checkbox" id="googleCheck"/> Google Search</label>
+                    </li>
+                    
+                    <li>
+                       <label id="clockCheckLabel"><input type="checkbox" id="clockCheck"/> Clock</label>
+                    </li>
+
+                </ul>
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" id="fileButton">사진열기</a>
+                    </li>
+                    <input type="file" id="files" style="display:none;">  
+                </ul>
+
+            </div>
+            <!-- /.navbar-collapse -->
+
+
+           
+
+        </div>
+        <!-- /.container -->
+    </nav>
+
+        <header id="pictureBackground" style="display:none">
+        
+                <div class="container-fluid" id="searchArea" style="padding-top:50px">
+                    <div class="row">
+                        <div  class="col-md-2 selectContainer" >
+                            <br/>
+
+                            <div class="input-group" id="googleSearchArea">
+                                <input type="text" id="query" class="form-control" placeholder="Google Search">
+                                <span class="input-group-btn">
+                                <button class="btn btn-default" id="search" type="button">Search</button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </div>
+                    </div>
+                </div>
+               
+                <div id='header-content' class="header-content">
+                    
+                        <div class="container-fluid" style="padding-right=100px;">
+                              <div class="row">
+                               <div class="header-content-inner">
+                                  <div class="clock" id="clockArea">
+                                    <div id="Date"></div>
+                                      <ul>
+                                          <li id="hours"></li>
+                                          <li id="point">:</li>
+                                          <li id="min"></li>
+                                          <li id="point">:</li>
+                                          <li id="sec"></li>
+                                      </ul>
+                                    </div>
+                                </div>
+                              </div>
+                             <div class="row">
+                                <div class="header-content-inner">
+                                    <h1>
+                                        
+                                    </h1>
+                                    
+                                    <p></p>
+
+                                </div>
+                             </div>
+                         </div>
+                       
+                         
+                </div>
+                 
+            </header>
+
+<style type="text/css">
+  
+
+</style>
+    
+    <!-- Page Content -->
+    <div id="bookmarkBackground" class="container" style="width:100%;display:block">
+ 
+        <div class="row" >
+
+            <!--div  class="col-md-4 panel panel-default" >
+                <div class="panel-heading" style="width:100%">Panel Heading</div>
+                <div id="data" class="panel-body demo" style="overflow-x:scroll">Panel Content</div>
+            </div>
+            <div  class="col-md-4 panel panel-default" >
+                <div class="panel-heading" style="width:100%">Panel Heading</div>
+                <div id="dataGroup" class="panel-body demo" style="overflow-x:scroll">Panel Content</div>
+            </div -->
+
+            <div  class="col-md-5" > 
+                <ul class="nav nav-tabs" >
+                    <li class="active"><a data-toggle="tab" href="#data">Default</a></li>
+                    <li><a data-toggle="tab" href="#dataGroup">Host Group</a></li>
+                    <li><a data-toggle="tab" href="#visit">Visited Page</a></li>
+                </ul>
+
+                <div class="tab-content" >
+                    <div id="data" class="tab-pane fade in active" style="overflow-x:hidden"></div>
+                    <div id="dataGroup" class="tab-pane fade" style="overflow-x:hidden"></div>
+                    <div id="visit" class="tab-pane fade" style="overflow-x:hidden"></div>
+                </div> 
+            </div>
+
+
+
+            <div  class="col-md-7"> 
+                <div class="row">
+                   <div class="col-md-6">
+                        <div class="input-group">
+                        <span class="input-group-addon">
+                                <input type="checkbox" id="includeGoogleSearch" aria-label="...">
+                            </span>
+                          <input type="text" id="searchQuery" class="form-control" placeholder="Google 검색포함은 체크.">
+                          <span class="input-group-btn">
+                            <button id="bookmarkSearch" class="btn btn-success" type="button">Bookmark 검색 </button>
+                          </span>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+
+               <hr>
+
+                <div class="row">
+
+                   
+                    <div id="result" class="tab-pane" style="overflow-x:hidden;padding:14px;height:86vh;">
+                    
+                    </div>
+                   
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+
+   
+    <button id="remoteButtonModal" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display:none">Modal</button>
+
+     <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog"  data-backdrop="static" data-keyboard="false" ><!--data-remote="http://www.naver.com"-->
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+
+
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.json.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootbox.min.js"></script>
+                    
+    <!-- One page -->
+    <script src="js/jquery.easing.min.js"></script>
+    <script src="js/jquery.fittext.js"></script>
+    <script src="js/wow.min.js"></script>
+    <script src="js/creative.js"></script>
+    <!-- Input File button -->
+
+    <script src="js/jstree.min.js"></script>
+    <script src="clock.js"></script>
+    <script src="crawl.js"></script>
+    <script src="date.js"></script>
+    <script src="map.js"></script>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+var tab_list= document.getElementById('tab_list'),
+ bookmark_list= $('#bookmarks_list'),
+ history_list= document.getElementById('history_list'),
+ tmpl= document.getElementById('tmpl').firstChild,
+ FAVICON= 'http://www.google.com/s2/favicons?domain=';
+
+
+function list_creater(data, parent, callback){
+	var rootLength = data[0].children.length;
+	/*console.log(data[0] );
+	console.log(rootLength );*/
+  var id;
+	for(var i = 0; i < rootLength; i++){
+    var root = data[0].children[i];
+		
+
+    console.log(root	);
+
+		//var li = tmpl.cloneNode(true);
+    //+" ("+root.children.length+")" 
+    var li = $('<li>',{id:root.id , text: root.title});
+		
+
+    $(li).on('click',function(event){
+       chrome.bookmarks.getSubTree(event.toElement.id, function(result){
+        
+        var rootDir = $('#'+event.toElement.id);
+        var subli = $('<li>',{text:"sub"});
+        rootDir.append(subli);
+
+        console.log("result",result);
+        
+        
+      })
+    });
+
+		parent.append(li);
+	}
+	
+}
+
+/*
+
+    if (data.url && data.title && data.url.indexOf('javascript:') !== 0) {
+     
+	  var li = tmpl.cloneNode(true);
+      var a = li.firstChild;
+      a.href = data.url;
+      a.textContent = data.title;
+      var icon = document.createElement('img');
+      icon.src = data.favIconUrl || FAVICON + a.host;
+      a.insertBefore(icon, a.firstChild);
+      parent.appendChild(li);
+      if (callback) {
+        callback(data, a);
+      }
+    }
+
+*/
+ 
+
+
+chrome.bookmarks.getTree(function(roots){
+  var bookmarks = [];
+  roots.forEach(parser);
+ 
+  function parser(node){
+
+	bookmarks.push(node);
+   /* if (node.children) {
+      node.children.forEach(parser);
+    } else if(node.url) {
+      bookmarks.push(node);
+    }*/
+  }
+  list_creater(bookmarks, bookmark_list);
+});
+
+
+function TabUpdate(){
+  chrome.tabs.getAllInWindow(null,function(tabs){
+    while (tab_list.firstChild) {
+      tab_list.removeChild(tab_list.firstChild);
+    }
+    list_creater(tabs, tab_list, function(tab, link){
+      link.addEventListener('click',function(evt){
+        evt.preventDefault();
+        evt.stopPropagation();
+        chrome.tabs.update(tab.id,{selected:true});
+      }, false);
+    });
+  });
+}
+TabUpdate();
+
+chrome.tabs.onUpdated.addListener(function(tabid, info){
+  if (info.status === 'complete') {
+    TabUpdate();
+  }
+});
+chrome.tabs.onRemoved.addListener(function(tabid){
+  TabUpdate();
+});
+chrome.tabs.onDetached.addListener(function(tabid){
+  TabUpdate();
+});
+chrome.tabs.onAttached.addListener(function(tabid){
+  TabUpdate();
+});
+chrome.tabs.onMoved.addListener(function(tabid){
+  TabUpdate();
+});
+
+
+const LEFT_CLICK = 0;
+const CENTER_CLICK = 1;
+document.addEventListener('click',function(evt){
+  var target = evt.target;
+  if (target instanceof HTMLAnchorElement &&
+      target.href &&
+      target.href.indexOf('http') !== 0) {
+    evt.preventDefault();
+    chrome.tabs.getSelected(null,function(tab){
+      switch (evt.button) {
+        case LEFT_CLICK :
+          chrome.tabs.update(tab.id,{url:target.href});
+          break;
+        case CENTER_CLICK:
+          chrome.tabs.create({
+            url:target.href,
+            selected:false
+          });
+          break;
+      }
+    });
+  }
+},false);
